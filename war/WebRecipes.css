@@ -16,9 +16,9 @@ h1 {
 }
 
 /** Most GWT widgets already have a style name defined */
-.gwt-DialogBox {
+/* .gwt-DialogBox {
   width: 400px;
-}
+} */
 
 .dialogVPanel {
   margin: 5px;

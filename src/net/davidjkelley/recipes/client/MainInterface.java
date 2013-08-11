@@ -1,31 +1,27 @@
 package net.davidjkelley.recipes.client;
 
-import javax.swing.JCheckBox;
-import java.awt.Dimension;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class MainInterface extends com.google.gwt.user.client.ui.DialogBox {
+public class MainInterface extends VerticalPanel {
 	Button recipeSaveButton = new Button("Save Recipe");
 	Label selectRecipeLabel = new Label("Select Recipe: ");
 	String[] toBeDBisfied = {"one", "two", "three"};
 	EasyListBox<String> recipeDropDown = new EasyListBox<String>();
 	Button addRecipeButton = new Button("+");
-	//JPanel recipePanel = new JPanel();
 	FlexTable recipeFlexTable = new FlexTable();
 	
 	public MainInterface() {
-		
+		//TODO - Update this to a dB interaction rather than a for loop of junk strings
 		for (String string : toBeDBisfied ) {
 			recipeDropDown.addItem(string);
 		}
@@ -56,41 +52,55 @@ public class MainInterface extends com.google.gwt.user.client.ui.DialogBox {
 	
 	public class AddRecipeListener implements ClickHandler {
 		public void onClick (ClickEvent e) {
-//			final JFrame junk = new JFrame("Add a new recipe");
-//			//TODO - find a way to make this size dynamic again!
-//			junk.setSize(150,150);
-//			final JTextField newRecipeTextBox = new JTextField(10);
-//			JPanel region = new JPanel();
-//			JLabel newRecipeLabel = new JLabel("Name: ");
-//			region.add(newRecipeLabel);
-//			region.add(newRecipeTextBox);
-//			JButton cancel = new JButton("Cancel");
-//			cancel.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent e) {
-//					//TODO - make better memory management
-//					junk.setVisible(false);
-//				}
-//			});
-//			JButton okay = new JButton("Save");
-//			okay.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent e) {
-//					if (newRecipeTextBox.getText().length() >= 1){
-//						
+			final DialogBox addNewRecipeDialogBox = new DialogBox(true);
+			//addNewRecipeDialogBox.setSize("500px", "500px");
+			//addNewRecipeDialogBox.setText("New Recipe");
+			FlexTable newRecipeFlexTable = new FlexTable();
+			
+			final TextBox newRecipeTextBox = new TextBox();
+			
+			int row = 0;
+			
+			//newRecipeFlexTable.setText(row, 0, "Name");
+			newRecipeFlexTable.setWidget(row, 0, newRecipeTextBox);
+			newRecipeFlexTable.getFlexCellFormatter().setColSpan(row, 0, 2);
+
+			Button cancel = new Button("Cancel");
+			Button okay = new Button("Save");
+			cancel.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent e) {
+					//TODO - make better memory management
+					addNewRecipeDialogBox.hide();
+				}
+			});
+			
+			okay.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent e) {
+					if (newRecipeTextBox.getText().length() >= 1){
+						
 //						//TODO - memory mgmt as well as dB interaction needs
 //						//to be implement
-//						System.out.println("Closed with a save of: " + newRecipeTextBox.getText());
-//						junk.setVisible(false);
-//					}
-//					else {
-//						return;
-//					}
-//					}
-//				
-//			});
-//			region.add(cancel);
-//			region.add(okay);
-//			junk.add(region);
-//			junk.setVisible(true);
+						System.out.println("Closed with a save of: " + newRecipeTextBox.getText());
+						addNewRecipeDialogBox.hide();
+					}
+					else {
+						return;
+					}
+					}
+				
+			});
+			row++;
+			newRecipeFlexTable.setWidget(row, 0, cancel);
+			newRecipeFlexTable.getFlexCellFormatter().setAlignment(row, 0, HasHorizontalAlignment.ALIGN_CENTER,
+					HasVerticalAlignment.ALIGN_MIDDLE);
+			newRecipeFlexTable.setWidget(row, 1, okay);
+			newRecipeFlexTable.getFlexCellFormatter().setAlignment(row, 1, HasHorizontalAlignment.ALIGN_CENTER,
+					HasVerticalAlignment.ALIGN_MIDDLE);
+			addNewRecipeDialogBox.setText("New Recipe");
+			addNewRecipeDialogBox.setWidget(newRecipeFlexTable);
+			addNewRecipeDialogBox.setAnimationEnabled(true);
+			addNewRecipeDialogBox.setGlassEnabled(true);
+			addNewRecipeDialogBox.center();
 			
 		}
 	}
