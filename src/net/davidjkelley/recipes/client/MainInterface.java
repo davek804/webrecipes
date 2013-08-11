@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MainInterface extends VerticalPanel {
-	Button recipeSaveButton = new Button("Save Recipe");
+	//Button recipeSaveButton = new Button("Save Recipe");
 	Label selectRecipeLabel = new Label("Select Recipe: ");
 	String[] toBeDBisfied = {"one", "two", "three"};
 	EasyListBox<String> recipeDropDown = new EasyListBox<String>();
@@ -37,9 +37,9 @@ public class MainInterface extends VerticalPanel {
 		recipeFlexTable.setWidget(0,1,recipeDropDown);
 		addRecipeButton.addClickHandler(new AddRecipeListener());
 		recipeFlexTable.setWidget(0,2,addRecipeButton);
-        recipeSaveButton.addClickHandler(new SaveRecipeListener());   
+       // recipeSaveButton.addClickHandler(new SaveRecipeListener());   
 
-		recipeFlexTable.setWidget(0,3,recipeSaveButton);
+		//recipeFlexTable.setWidget(0,3,recipeSaveButton);
 
 	}
 	
@@ -104,13 +104,13 @@ public class MainInterface extends VerticalPanel {
 		}
 	}
 	
-	public class SaveRecipeListener implements ClickHandler {
-		@Override
-		public void onClick(ClickEvent event) {
-			System.out.println("Save Recipe button clicked");
-			
-		}
-	}
+//	public class SaveRecipeListener implements ClickHandler {
+//		@Override
+//		public void onClick(ClickEvent event) {
+//			System.out.println("Save Recipe button clicked");
+//			
+//		}
+//	}
 //	public class CheckBoxListener implements ItemListener  {
 //		
 //		   public void itemStateChanged(ItemEvent e) {
