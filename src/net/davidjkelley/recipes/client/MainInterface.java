@@ -86,8 +86,7 @@ public class MainInterface extends VerticalPanel {
 					else {
 						return;
 					}
-					}
-				
+					}	
 			});
 			row++;
 			newRecipeFlexTable.setWidget(row, 0, cancel);
