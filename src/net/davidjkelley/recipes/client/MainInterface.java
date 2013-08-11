@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MainInterface extends VerticalPanel {
+	RecipeInterface recipeInterface;
 	//Button recipeSaveButton = new Button("Save Recipe");
 	Label selectRecipeLabel = new Label("Select Recipe: ");
 	String[] toBeDBisfied = {"one", "two", "three"};
@@ -27,10 +28,7 @@ public class MainInterface extends VerticalPanel {
 		}
 		
 		recipeDropDown.setSelectedIndex(0);
-		recipeDropDown.addChangeHandler(new ChangeHandler() {
-			public void onChange(ChangeEvent event) {
-			}
-			});
+		recipeDropDown.addChangeHandler(new RecipeDropDownHandler());
 		
 		this.add(recipeFlexTable);
 		recipeFlexTable.setWidget(0, 0, selectRecipeLabel);
@@ -101,6 +99,13 @@ public class MainInterface extends VerticalPanel {
 			addNewRecipeDialogBox.setGlassEnabled(true);
 			addNewRecipeDialogBox.center();
 			
+		}
+	}
+	
+	public class RecipeDropDownHandler implements ChangeHandler {
+		public void onChange(ChangeEvent e) {
+			System.out.println(recipeDropDown.getSelectedObject());
+			recipeInterface = new RecipeInterface();
 		}
 	}
 	
