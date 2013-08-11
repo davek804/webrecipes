@@ -27,8 +27,11 @@ public class MainInterface extends VerticalPanel {
 			recipeDropDown.addItem(string);
 		}
 		
-		recipeDropDown.setSelectedIndex(0);
+		recipeDropDown.setSelectedIndex(0);		
+		//TODO passing MainInterface twice? hella resource wasteful
+		recipeInterface = new RecipeInterface(recipeDropDown.getItemText(0), this);
 		recipeDropDown.addChangeHandler(new RecipeDropDownHandler());
+
 		
 		this.add(recipeFlexTable);
 		recipeFlexTable.setWidget(0, 0, selectRecipeLabel);
@@ -41,12 +44,12 @@ public class MainInterface extends VerticalPanel {
 
 	}
 	
-	public class RecipeDropDownListener implements ClickHandler {
-		public void onClick(ClickEvent e) {
-			//TODO - will eventually return the name of the recipe and populate the recipe interface
-			System.out.println(e.getSource().toString());
-		}
-	}
+//	public class RecipeDropDownListener implements ClickHandler {
+//		public void onClick(ClickEvent e) {
+//			//TODO - will eventually return the name of the recipe and populate the recipe interface
+//			System.out.println(e.getSource().toString());
+//		}
+//	}
 	
 	public class AddRecipeListener implements ClickHandler {
 		public void onClick (ClickEvent e) {
@@ -104,8 +107,10 @@ public class MainInterface extends VerticalPanel {
 	
 	public class RecipeDropDownHandler implements ChangeHandler {
 		public void onChange(ChangeEvent e) {
-			System.out.println(recipeDropDown.getSelectedObject());
-			recipeInterface = new RecipeInterface();
+			//TODO implement full recipe object in dropdown
+			int location = (recipeDropDown.getSelectedIndex());
+			String recipe = (recipeDropDown.getItemText(location));
+			recipeInterface = new RecipeInterface(recipe, MainInterface.this);
 		}
 	}
 	
