@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -29,19 +30,24 @@ public class MainInterface extends VerticalPanel {
 		
 		recipeDropDown.setSelectedIndex(0);		
 		//TODO passing MainInterface twice? hella resource wasteful
-		recipeInterface = new RecipeInterface(recipeDropDown.getItemText(0), this);
-		recipeDropDown.addChangeHandler(new RecipeDropDownHandler());
+		
 
 		
-		this.add(recipeFlexTable);
-		recipeFlexTable.setWidget(0, 0, selectRecipeLabel);
-		recipeFlexTable.setWidget(0,1,recipeDropDown);
+		HorizontalPanel topInterface = new HorizontalPanel();
+		topInterface.setVerticalAlignment(ALIGN_MIDDLE);
+		recipeFlexTable.setWidget(0, 0, topInterface);
+		topInterface.add(selectRecipeLabel);
+		topInterface.add(recipeDropDown);
+		topInterface.add(addRecipeButton);
 		addRecipeButton.addClickHandler(new AddRecipeListener());
-		recipeFlexTable.setWidget(0,2,addRecipeButton);
        // recipeSaveButton.addClickHandler(new SaveRecipeListener());   
 
-		//recipeFlexTable.setWidget(0,3,recipeSaveButton);
-
+		
+		recipeInterface = new RecipeInterface(recipeDropDown.getItemText(0), this);
+		recipeDropDown.addChangeHandler(new RecipeDropDownHandler());
+		recipeFlexTable.setWidget(1,0,recipeInterface);
+		recipeFlexTable.getFlexCellFormatter().setColSpan(1, 0, 3);
+		this.add(recipeFlexTable);
 	}
 	
 //	public class RecipeDropDownListener implements ClickHandler {
@@ -97,6 +103,7 @@ public class MainInterface extends VerticalPanel {
 			newRecipeFlexTable.getFlexCellFormatter().setAlignment(row, 1, HasHorizontalAlignment.ALIGN_CENTER,
 					HasVerticalAlignment.ALIGN_MIDDLE);
 			addNewRecipeDialogBox.setText("New Recipe");
+			//DecoratorPanel dP = new DecoratorPanel();
 			addNewRecipeDialogBox.setWidget(newRecipeFlexTable);
 			addNewRecipeDialogBox.setAnimationEnabled(true);
 			addNewRecipeDialogBox.setGlassEnabled(true);
