@@ -1,5 +1,8 @@
 package net.davidjkelley.recipes.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,14 +21,25 @@ public class MainInterface extends VerticalPanel {
 	//Button recipeSaveButton = new Button("Save Recipe");
 	Label selectRecipeLabel = new Label("Select Recipe: ");
 	String[] toBeDBisfied = {"one", "two", "three"};
-	EasyListBox<String> recipeDropDown = new EasyListBox<String>();
+	EasyListBox<Recipe> recipeDropDown = new EasyListBox<Recipe>();
 	Button addRecipeButton = new Button("+");
 	FlexTable recipeFlexTable = new FlexTable();
 	
 	public MainInterface() {
 		//TODO - Update this to a dB interaction rather than a for loop of junk strings
-		for (String string : toBeDBisfied ) {
-			recipeDropDown.addItem(string);
+		int j = 0;
+		while (j < 5) {
+			String[] ingredients = {"One", "Two", "Count: " + Integer.toString(j)};
+			ArrayList<Process> processes = new ArrayList<Process>();
+			int i = 0;
+			while (i < 3) {
+			Process p = new Process();
+			processes.add(p);
+			i++;
+			}
+			Recipe r = new Recipe(ingredients, processes, "Title" + Integer.toString(j));
+			recipeDropDown.addItem(r.getTitle(), "lol", r);
+			j++;
 		}
 		
 		recipeDropDown.setSelectedIndex(0);		
@@ -43,7 +57,7 @@ public class MainInterface extends VerticalPanel {
        // recipeSaveButton.addClickHandler(new SaveRecipeListener());   
 
 		
-		recipeInterface = new RecipeInterface(recipeDropDown.getItemText(0), this);
+		recipeInterface = new RecipeInterface(recipeDropDown.getSelectedObject(), this);
 		recipeDropDown.addChangeHandler(new RecipeDropDownHandler());
 		recipeFlexTable.setWidget(1,0,recipeInterface);
 		recipeFlexTable.getFlexCellFormatter().setColSpan(1, 0, 3);
@@ -116,8 +130,8 @@ public class MainInterface extends VerticalPanel {
 		public void onChange(ChangeEvent e) {
 			//TODO implement full recipe object in dropdown
 			int location = (recipeDropDown.getSelectedIndex());
-			String recipe = (recipeDropDown.getItemText(location));
-			recipeInterface = new RecipeInterface(recipe, MainInterface.this);
+			//String recipe = (recipeDropDown.getItemText(location));
+			recipeInterface = new RecipeInterface(recipeDropDown.getSelectedObject(), MainInterface.this);
 		}
 	}
 	
