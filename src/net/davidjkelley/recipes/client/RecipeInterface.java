@@ -2,7 +2,6 @@ package net.davidjkelley.recipes.client;
 
 import java.util.ArrayList;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
