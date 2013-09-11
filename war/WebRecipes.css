@@ -32,3 +32,12 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-weight: Regular;
+	font-size: 2em;
+	font-family: Zapfino;
+	color: green;
+}
