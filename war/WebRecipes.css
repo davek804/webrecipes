@@ -1,13 +1,22 @@
 /** Add css rules here for your application. */
 
-
 /** Example rules used by the template application (remove for your app) */
-h1 {
-  font-size: 2em;
-  font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
-  text-align: center;
+p {
+  font-size: 1em;
+  color: green;
+  font-family: Zapfino;
+}
+
+ul {
+	margin-bottom: -10px;
+}
+
+li {
+	font-family: Zapfino;
+	color: green;
+	padding: -5px;
+	margin-top: -10px;
+	margin-bottom: -10px;
 }
 
 .sendButton {
@@ -33,11 +42,69 @@ h1 {
   margin: 15px 6px 6px;
 }
 
-p {
+h1 {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	font-weight: Regular;
 	font-size: 2em;
 	font-family: Zapfino;
 	color: green;
+}
+
+.setMainInterface {
+	background: #e9e7a9;
+}
+
+.processInterface {
+	width: 100%;
+	height: 100%;
+}
+
+.selectRecipeLabel {
+	margin-left: 0px;
+	margin-right: 10px;
+	margin-bottom: -3px;
+	font-family: Zapfino;
+	color: green;
+}
+
+.addRecipeButton{
+	margin-left: 10px;
+}
+
+.gwt-TabLayoutPanel {
+	height: 50em;
+	width: 50em;
+}
+ 
+/** the tab bar */
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabs {
+	background: none !important;
+	} 
+
+.gwt-TabLayoutPanelTab {
+    background-color: blue;
+}
+ 
+/** the individual tab in the tab bar */
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab {
+ cursor: pointer;
+ cursor: hand;
+ font-size: 8pt;
+ text-align: center;
+ font-family: Zapfino;
+ background: green !important;
+}
+ 
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTab-selected {
+ cursor: default;
+}
+ 
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelContent {
+	margin-top: 5px;
+	border: 5px dotted black;
+}
+ 
+.gwt-TabLayoutPanel .gwt-TabLayoutPanelTabInner {
+	
 }

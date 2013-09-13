@@ -24,13 +24,16 @@ public class RecipeInterface extends VerticalPanel {
 		init();
 	}
  public void init() {
-	 tabPanel = new TabLayoutPanel(2.2, Unit.EM);
+	 tabPanel = new TabLayoutPanel(4, Unit.EM);
+	 
+	 tabPanel.setStyleName("gwt-TabLayoutPanel");
+	 
 	 tabPanel.setAnimationDuration(500);
 	 for (int i=0;i<processes.size();i++) {
 		 tabPanel.add(processes.get(i), Integer.toString(i+1) + ". " + processes.get(i).getName());
 	 }
 	 
-	 tabPanel.setSize("50em", "50em");
+	 //tabPanel.setSize("90em", "50em");
 	 this.add(tabPanel);
  }
 

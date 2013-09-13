@@ -23,9 +23,11 @@ public class MainInterface extends VerticalPanel {
 	EasyListBox<Recipe> recipeDropDown = new EasyListBox<Recipe>();
 	Button addRecipeButton = new Button("+");
 	FlexTable recipeFlexTable = new FlexTable();
+	int flexTableRow;
 	
 	public MainInterface() {
-		int row = 0;
+		this.setStyleName("setMainInterface");
+		int flexTableRow = 0;
 //		A simple abstraction. I chose to remove the clutter of building the recipes
 //		drop down in favor of a method that is called. Theoretically this could be a 
 //		class if this particular process becomes complex enough. This is just an effort
@@ -34,20 +36,24 @@ public class MainInterface extends VerticalPanel {
 //		Is the below TODO still needed? What did it reference?
 		//TODO passing MainInterface twice? hella resource wasteful
 		
-		HorizontalPanel titlePanel = new HorizontalPanel();
-		titlePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		titlePanel.getElement().setId("titleRegion");
-		titlePanel.add(new HTML("<p>Recipitron 9000</p>"));
-		recipeFlexTable.setWidget(row, 0, titlePanel);
-		row++;
+		//HorizontalPanel titlePanel = new HorizontalPanel();
+		//not working at this point in time 9/12
+		//titlePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		//titlePanel.getElement().setId("titleRegion");
+		//titlePanel.add();
+		recipeFlexTable.setWidget(flexTableRow, 0, new HTML("<h1>Recipitron 9000</h1>"));
+		flexTableRow++;
 
 		
 		HorizontalPanel recipeManagerPanel = new HorizontalPanel();
+		//recipeManagerPanel.setSpacing(15);
 		recipeManagerPanel.setVerticalAlignment(ALIGN_MIDDLE);
-		recipeFlexTable.setWidget(row, 0, recipeManagerPanel);
-		row++;
+		recipeFlexTable.setWidget(flexTableRow, 0, recipeManagerPanel);
+		flexTableRow++;
 		recipeManagerPanel.add(selectRecipeLabel);
+		selectRecipeLabel.setStyleName("selectRecipeLabel");
 		recipeManagerPanel.add(recipeDropDown);
+		addRecipeButton.setStyleName("addRecipeButton");
 		recipeManagerPanel.add(addRecipeButton);
 		addRecipeButton.addClickHandler(new AddRecipeListener());
        // recipeSaveButton.addClickHandler(new SaveRecipeListener());   
@@ -55,9 +61,8 @@ public class MainInterface extends VerticalPanel {
 		
 		recipeInterface = new RecipeInterface(recipeDropDown.getSelectedObject(), this);
 		recipeDropDown.addChangeHandler(new RecipeDropDownHandler());
-		recipeFlexTable.setWidget(row,0,recipeInterface);
-		row++;
-		recipeFlexTable.getFlexCellFormatter().setColSpan(1, 0, 3);
+		recipeFlexTable.setWidget(flexTableRow,0,recipeInterface);
+		//recipeFlexTable.getFlexCellFormatter().setColSpan(1, 0, 3);
 		this.add(recipeFlexTable);
 	}
 	
@@ -84,8 +89,13 @@ public class MainInterface extends VerticalPanel {
 					recipeDropDown.addItem(r.getTitle(), "lol", r);
 					j++;
 				}
-				
+				// TODO interact with local cookies, to remember last recipe selected etc
 				recipeDropDown.setSelectedIndex(0);		
+	}
+	
+	public void setRecipeInterface(RecipeInterface recipeInterface) {
+		//recipeFlexTable.clearCell(flexTableRow, 0);
+		recipeFlexTable.setWidget(2, 0, recipeInterface);
 	}
 	
 	public class AddRecipeListener implements ClickHandler {
@@ -148,7 +158,9 @@ public class MainInterface extends VerticalPanel {
 			//TODO implement full recipe object in dropdown
 			int location = (recipeDropDown.getSelectedIndex());
 			//String recipe = (recipeDropDown.getItemText(location));
+			recipeInterface = null;
 			recipeInterface = new RecipeInterface(recipeDropDown.getSelectedObject(), MainInterface.this);
+			setRecipeInterface(recipeInterface);
 		}
 	}
 	
