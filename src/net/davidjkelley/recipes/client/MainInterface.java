@@ -7,6 +7,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -24,40 +25,38 @@ public class MainInterface extends VerticalPanel {
 	FlexTable recipeFlexTable = new FlexTable();
 	
 	public MainInterface() {
-		//TODO - Update this to a dB interaction rather than a for loop of junk strings
-		int j = 0;
-		while (j < 5) {
-			String[] ingredients = {"One", "Two", "Count: " + Integer.toString(j)};
-			ArrayList<Process> processes = new ArrayList<Process>();
-			int i = 0;
-			while (i < 3) {
-			Process p = new Process();
-			processes.add(p);
-			i++;
-			}
-			Recipe r = new Recipe(ingredients, processes, "Title" + Integer.toString(j));
-			recipeDropDown.addItem(r.getTitle(), "lol", r);
-			j++;
-		}
-		
-		recipeDropDown.setSelectedIndex(0);		
+		int row = 0;
+//		A simple abstraction. I chose to remove the clutter of building the recipes
+//		drop down in favor of a method that is called. Theoretically this could be a 
+//		class if this particular process becomes complex enough. This is just an effort
+//		to keep the code clean. 
+		buildRecipeDropDownMenu();
+//		Is the below TODO still needed? What did it reference?
 		//TODO passing MainInterface twice? hella resource wasteful
 		
+		HorizontalPanel titlePanel = new HorizontalPanel();
+		titlePanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		titlePanel.getElement().setId("titleRegion");
+		titlePanel.add(new HTML("<p>Recipitron 9000</p>"));
+		recipeFlexTable.setWidget(row, 0, titlePanel);
+		row++;
 
 		
-		HorizontalPanel topInterface = new HorizontalPanel();
-		topInterface.setVerticalAlignment(ALIGN_MIDDLE);
-		recipeFlexTable.setWidget(0, 0, topInterface);
-		topInterface.add(selectRecipeLabel);
-		topInterface.add(recipeDropDown);
-		topInterface.add(addRecipeButton);
+		HorizontalPanel recipeManagerPanel = new HorizontalPanel();
+		recipeManagerPanel.setVerticalAlignment(ALIGN_MIDDLE);
+		recipeFlexTable.setWidget(row, 0, recipeManagerPanel);
+		row++;
+		recipeManagerPanel.add(selectRecipeLabel);
+		recipeManagerPanel.add(recipeDropDown);
+		recipeManagerPanel.add(addRecipeButton);
 		addRecipeButton.addClickHandler(new AddRecipeListener());
        // recipeSaveButton.addClickHandler(new SaveRecipeListener());   
 
 		
 		recipeInterface = new RecipeInterface(recipeDropDown.getSelectedObject(), this);
 		recipeDropDown.addChangeHandler(new RecipeDropDownHandler());
-		recipeFlexTable.setWidget(1,0,recipeInterface);
+		recipeFlexTable.setWidget(row,0,recipeInterface);
+		row++;
 		recipeFlexTable.getFlexCellFormatter().setColSpan(1, 0, 3);
 		this.add(recipeFlexTable);
 	}
@@ -68,6 +67,26 @@ public class MainInterface extends VerticalPanel {
 //			System.out.println(e.getSource().toString());
 //		}
 //	}
+	
+	public void buildRecipeDropDownMenu() {
+		//TODO - Update this to a dB interaction rather than a for loop of junk strings
+				int j = 0;
+				while (j < 5) {
+					String[] ingredients = {"One", "Two", "Count: " + Integer.toString(j)};
+					ArrayList<Process> processes = new ArrayList<Process>();
+					int i = 0;
+					while (i < 3) {
+					Process p = new Process();
+					processes.add(p);
+					i++;
+					}
+					Recipe r = new Recipe(ingredients, processes, "Title" + Integer.toString(j));
+					recipeDropDown.addItem(r.getTitle(), "lol", r);
+					j++;
+				}
+				
+				recipeDropDown.setSelectedIndex(0);		
+	}
 	
 	public class AddRecipeListener implements ClickHandler {
 		public void onClick (ClickEvent e) {
